@@ -32,3 +32,9 @@ body {
 .footer .ui.breadcrumb {
 	margin: 0em !important;
 }
+
+@media screen and (max-device-width: 400px) {
+    #hide-in-mobile {
+        display: none;
+    }
+}
