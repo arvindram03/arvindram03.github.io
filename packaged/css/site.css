@@ -38,3 +38,10 @@ body {
         display: none;
     }
 }
+
+@media screen and (max-device-width: 4000px) {
+    #profile-image {
+        /*display: none;*/
+        width: 30%;
+    }
+}
