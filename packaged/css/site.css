@@ -3,7 +3,32 @@ body {
 	
 }
 
-.center {
-	text-align: center;
-	min-height: 100%;
+.center-image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 15%;
+    background-color: #b0e0e6;
+}
+.vertical-center{
+  margin-top: 100px;
+}
+.custom-title{
+	margin-bottom: 0em !important;
+	margin-top: 0em !important;
+}
+.sub-text {
+	color: #888888
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 1em;
+    text-align: center;
+    text-decoration: none;
+}
+
+.footer .ui.breadcrumb {
+	margin: 0em !important;
 }
