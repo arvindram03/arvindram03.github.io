@@ -39,7 +39,7 @@ body {
     }
 }
 
-@media screen and (max-device-width: 4000px) {
+@media screen and (max-device-width: 400px) {
     #profile-image {
         /*display: none;*/
         width: 30%;
