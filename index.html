@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <title>Arvind Ram Anantharam — Co-Founder, AI Systems Engineer</title>
-<meta name="description" content="Co-Founder & CTO at Operable. Ex-Google. I build AI products from first principles — agentic architectures, AI-native runtimes, distributed systems, and ML infrastructure." />
+<meta name="description" content="Co-Founder & CTO at Operable. Ex-Google. Open for independent consulting in agentic systems, AI-native runtimes, distributed systems, and ML infrastructure." />
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Arvind Ram Anantharam — Co-Founder, AI Systems Engineer" />
-<meta property="og:description" content="Co-Founder & CTO at Operable. Ex-Google. Agentic architectures, AI-native runtimes, distributed systems, and ML infrastructure." />
+<meta property="og:description" content="Co-Founder & CTO at Operable. Ex-Google. Open for independent consulting in agentic systems, AI-native runtimes, distributed systems, and ML infrastructure." />
 <meta property="og:url" content="https://arvindram03.github.io/" />
 <meta property="og:image" content="https://arvindram03.github.io/packaged/images/arvindram.jpg" />
 <meta name="twitter:card" content="summary" />
@@ -132,6 +132,16 @@ header {
   padding: 120px 0 60px;
 }
 
+.avail {
+  display: inline-flex; align-items: center; gap: 11px;
+  padding: 9px 19px; margin-bottom: 24px;
+  border: 1px solid var(--line); border-radius: 100px;
+  font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--mute);
+  transition: border-color .4s var(--ease), color .4s var(--ease);
+}
+.avail:hover { border-color: var(--fg); color: var(--fg); }
+
 .eyebrow {
   font-family: var(--mono); font-size: 11px;
   letter-spacing: .22em; text-transform: uppercase;
@@ -139,7 +149,14 @@ header {
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
   margin-bottom: 34px;
 }
-.eyebrow .dot {
+.avail, .eyebrow {
+  opacity: 0; transform: translateY(16px);
+  animation: fade .8s var(--ease) forwards;
+}
+.avail   { animation-delay: .04s; }
+.eyebrow { animation-delay: .12s; }
+
+.dot {
   width: 6px; height: 6px; border-radius: 50%; background: var(--fg);
   animation: pulse 2.6s var(--ease) infinite;
 }
@@ -150,7 +167,7 @@ header {
 
 h1 {
   margin: 0;
-  font-size: clamp(42px, 11.2vw, 158px);
+  font-size: clamp(46px, 11.2vw, 158px);
   line-height: .88;
   letter-spacing: -0.045em;
   font-weight: 800;
@@ -403,10 +420,16 @@ h2 {
    ============================================================ */
 .contact { padding: 120px 0 90px; border-top: 1px solid var(--line); }
 .contact .kick {
+  display: flex; align-items: center; gap: 12px;
   font-family: var(--mono); font-size: 11px;
-  letter-spacing: .22em; text-transform: uppercase; color: var(--faint);
+  letter-spacing: .22em; text-transform: uppercase; color: var(--mute);
   margin-bottom: 26px;
 }
+.availnote {
+  margin: 34px 0 0; max-width: 60ch;
+  font-size: clamp(16px, 1.6vw, 19px); color: var(--mute);
+}
+.availnote b { color: var(--fg); font-weight: 600; }
 .bigmail {
   display: inline-block;
   font-size: clamp(28px, 6.6vw, 86px);
@@ -444,7 +467,7 @@ footer .social a:hover { color: var(--fg); }
   }
   h1 .line > span { transform: none; }
   [data-reveal] { opacity: 1; transform: none; }
-  .hero-foot { opacity: 1; transform: none; }
+  .hero-foot, .avail, .eyebrow { opacity: 1; transform: none; }
 }
 </style>
 </head>
@@ -468,16 +491,19 @@ footer .social a:hover { color: var(--fg); }
 
 <header id="top">
   <div class="wrap">
-    <div class="eyebrow">
+    <div class="avail">
       <span class="dot"></span>
+      Open for independent consulting
+    </div>
+
+    <div class="eyebrow">
       <span>Co-Founder</span><span>/</span>
       <span>Ex-Google</span><span>/</span>
       <span>AI Systems Engineer</span>
     </div>
 
     <h1>
-      <span class="line"><span>Arvind</span></span>
-      <span class="line"><span>Ram</span></span>
+      <span class="line"><span>Arvind Ram</span></span>
       <span class="line"><span>Anantharam</span></span>
     </h1>
 
@@ -688,8 +714,17 @@ footer .social a:hover { color: var(--fg); }
 
 <section class="contact" id="contact">
   <div class="wrap">
-    <div class="kick" data-reveal>Building something ambitious?</div>
+    <div class="kick" data-reveal>
+      <span class="dot"></span>
+      Open for independent consulting
+    </div>
     <a class="bigmail" href="mailto:arvindram03@gmail.com" data-reveal>arvindram03@gmail.com</a>
+    <p class="availnote" data-reveal>
+      I take on a small number of independent engagements alongside Operable —
+      <b>agentic systems, AI-native runtimes, and ML &amp; data infrastructure</b>.
+      Architecture reviews, zero-to-one builds, or getting an AI system that
+      demos well actually running in production. Tell me what you're building.
+    </p>
   </div>
 </section>
 
