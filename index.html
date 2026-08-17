@@ -578,9 +578,36 @@ h2 {
   letter-spacing: .22em; text-transform: uppercase; color: var(--mute);
   margin-bottom: 26px;
 }
+.promise { margin: 36px 0 0; max-width: 62ch; }
+.promise .p1 {
+  margin: 0;
+  font-size: clamp(21px, 2.7vw, 32px);
+  font-weight: 700; letter-spacing: -0.025em; line-height: 1.15;
+}
+.promise .p2 { margin: 12px 0 0; font-size: 16px; color: var(--mute); }
+
+.channels {
+  margin-top: 40px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+}
+.channel {
+  display: flex; flex-direction: column; gap: 9px;
+  padding: 22px 24px;
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  transition: background .4s var(--ease);
+}
+.channel:hover { background: var(--soft); }
+.channel .cl {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--faint);
+}
+.channel .cv { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+@media (max-width: 700px) { .channels { grid-template-columns: 1fr; } }
+
 .availnote {
-  margin: 34px 0 0; max-width: 60ch;
-  font-size: clamp(16px, 1.6vw, 19px); color: var(--mute);
+  margin: 40px 0 0; max-width: 60ch;
+  font-size: 16px; color: var(--mute);
 }
 .availnote b { color: var(--fg); font-weight: 600; }
 .bigmail {
@@ -1144,6 +1171,27 @@ footer .social a:hover { color: var(--fg); }
       Open for independent consulting
     </div>
     <a class="bigmail" href="mailto:arvindram03@gmail.com" data-reveal>arvindram03@gmail.com</a>
+
+    <div class="promise" data-reveal>
+      <p class="p1">I get back within 24 hours.</p>
+      <p class="p2">Happy to jump on a call — I'm on PST. WhatsApp or a text works just as well.</p>
+    </div>
+
+    <div class="channels" data-reveal>
+      <a class="channel" href="https://wa.me/13475891234" target="_blank" rel="noopener">
+        <span class="cl">WhatsApp / Text</span>
+        <span class="cv">+1 347-589-1234</span>
+      </a>
+      <a class="channel" href="https://x.com/arvindram03" target="_blank" rel="noopener">
+        <span class="cl">X</span>
+        <span class="cv">@arvindram03</span>
+      </a>
+      <a class="channel" href="https://www.linkedin.com/in/arvindram03" target="_blank" rel="noopener">
+        <span class="cl">LinkedIn</span>
+        <span class="cv">in/arvindram03</span>
+      </a>
+    </div>
+
     <p class="availnote" data-reveal>
       I take on a small number of independent engagements alongside Operable —
       <b>agentic systems, AI-native runtimes, and ML &amp; data infrastructure</b>.
@@ -1159,6 +1207,7 @@ footer .social a:hover { color: var(--fg); }
     <span class="social">
       <a href="https://github.com/arvindram03" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/arvindram03" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://x.com/arvindram03" target="_blank" rel="noopener">X</a>
     </span>
   </div>
 </footer>
