@@ -610,17 +610,25 @@ h2 {
   font-size: 16px; color: var(--mute);
 }
 .availnote b { color: var(--fg); font-weight: 600; }
+.closer {
+  margin: 0 0 22px;
+  font-size: clamp(30px, 5.2vw, 60px);
+  line-height: 1.03; letter-spacing: -0.035em; font-weight: 800;
+  text-transform: none;
+  max-width: 20ch;
+}
+
 .bigmail {
   display: inline-block;
-  font-size: clamp(28px, 6.6vw, 86px);
-  line-height: 1; letter-spacing: -0.045em; font-weight: 800;
+  font-size: clamp(23px, 3.4vw, 44px);
+  line-height: 1.1; letter-spacing: -0.03em; font-weight: 800;
   text-transform: uppercase;
   position: relative; overflow: hidden; padding-bottom: .08em;
   word-break: break-word;
 }
 .bigmail::after {
   content: ""; position: absolute; left: 0; bottom: 0;
-  height: clamp(2px, .5vw, 6px); width: 100%; background: var(--fg);
+  height: clamp(2px, .25vw, 3px); width: 100%; background: var(--fg);
   transform: scaleX(0); transform-origin: right;
   transition: transform .6s var(--ease);
 }
@@ -1170,6 +1178,8 @@ footer .social a:hover { color: var(--fg); }
       <span class="dot"></span>
       Open for independent consulting
     </div>
+    <h2 class="closer" data-reveal>Let's build something together.</h2>
+
     <a class="bigmail" href="mailto:arvindram03@gmail.com" data-reveal>arvindram03@gmail.com</a>
 
     <div class="promise" data-reveal>
