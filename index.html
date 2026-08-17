@@ -167,6 +167,17 @@ header {
   50%      { opacity: .35; transform: scale(.75); }
 }
 
+/* live "available" indicator — the one spot of colour on the page */
+.avail .dot {
+  background: #12b76a;
+  animation: ping 2.4s var(--ease) infinite;
+}
+@keyframes ping {
+  0%   { box-shadow: 0 0 0 0   rgba(18, 183, 106, .55); }
+  70%  { box-shadow: 0 0 0 9px rgba(18, 183, 106, 0);   }
+  100% { box-shadow: 0 0 0 0   rgba(18, 183, 106, 0);   }
+}
+
 h1 {
   margin: 0;
   font-size: clamp(46px, 11.2vw, 158px);
