@@ -144,19 +144,10 @@ header {
 }
 .avail:hover { border-color: var(--fg); color: var(--fg); }
 
-.eyebrow {
-  font-family: var(--mono); font-size: 11px;
-  letter-spacing: .22em; text-transform: uppercase;
-  color: var(--mute);
-  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-  margin-bottom: 34px;
-}
-.avail, .eyebrow {
+.avail {
   opacity: 0; transform: translateY(16px);
-  animation: fade .8s var(--ease) forwards;
+  animation: fade .8s var(--ease) .04s forwards;
 }
-.avail   { animation-delay: .04s; }
-.eyebrow { animation-delay: .12s; }
 
 .dot {
   width: 6px; height: 6px; border-radius: 50%; background: var(--fg);
@@ -178,38 +169,51 @@ header {
   100% { box-shadow: 0 0 0 0   rgba(18, 183, 106, 0);   }
 }
 
-h1 {
-  margin: 0;
-  font-size: clamp(46px, 11.2vw, 158px);
-  line-height: .88;
-  letter-spacing: -0.045em;
+/* the pitch carries the hero, not the name */
+h1.pitch {
+  margin: 22px 0 0;
+  font-size: clamp(32px, 6.4vw, 82px);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
   font-weight: 800;
-  text-transform: uppercase;
-}
-h1 .line { display: block; overflow: hidden; padding-bottom: .04em; }
-h1 .line > span {
-  display: block;
-  transform: translateY(105%);
-  animation: rise 1.05s var(--ease) forwards;
-}
-h1 .line:nth-child(1) > span { animation-delay: .06s; }
-h1 .line:nth-child(2) > span { animation-delay: .16s; }
-h1 .line:nth-child(3) > span { animation-delay: .26s; }
-@keyframes rise { to { transform: translateY(0); } }
-
-.hero-foot {
-  margin-top: 52px;
-  display: grid; grid-template-columns: 1fr minmax(320px, 46%);
-  gap: 40px; align-items: end;
-  opacity: 0; transform: translateY(24px);
-  animation: fade .9s var(--ease) .5s forwards;
+  max-width: 18ch;
+  opacity: 0; transform: translateY(20px);
+  animation: fade .9s var(--ease) .12s forwards;
 }
 @keyframes fade { to { opacity: 1; transform: none; } }
 
-.lede { margin: 0; font-size: clamp(16px, 1.6vw, 19px); color: var(--mute); max-width: 54ch; }
+.lede {
+  margin: 30px 0 0;
+  font-size: clamp(16px, 1.6vw, 19px); color: var(--mute); max-width: 58ch;
+  opacity: 0; transform: translateY(20px);
+  animation: fade .9s var(--ease) .24s forwards;
+}
 .lede b { color: var(--fg); font-weight: 600; }
 
-.links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+/* name demoted to a credential line under a rule */
+.cred {
+  margin-top: 52px; padding-top: 26px;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 28px; flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+  animation: fade .9s var(--ease) .36s forwards;
+}
+.cred .who {
+  margin: 0;
+  font-family: var(--mono); font-size: 13px; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+}
+.cred .meta {
+  margin: 9px 0 0;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 2px 12px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--faint);
+}
+.cred .meta span { white-space: nowrap; }
+.cred .meta .sep { color: var(--line); }
+
+.links { display: flex; flex-wrap: wrap; gap: 10px; }
 .links a {
   position: relative; overflow: hidden;
   padding: 11px 22px; border: 1px solid var(--line); border-radius: 100px;
@@ -227,8 +231,7 @@ h1 .line:nth-child(3) > span { animation-delay: .26s; }
 .links a:hover::before { transform: translateY(0); }
 
 @media (max-width: 860px) {
-  .hero-foot { grid-template-columns: 1fr; gap: 32px; align-items: start; }
-  .links { justify-content: flex-start; }
+  .cred { align-items: flex-start; gap: 22px; }
 }
 
 /* ============================================================
@@ -614,9 +617,8 @@ footer .social a:hover { color: var(--fg); }
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
-  h1 .line > span { transform: none; }
   [data-reveal] { opacity: 1; transform: none; }
-  .hero-foot, .avail, .eyebrow { opacity: 1; transform: none; }
+  .avail, .pitch, .lede, .cred { opacity: 1; transform: none; }
 }
 </style>
 </head>
@@ -646,25 +648,24 @@ footer .social a:hover { color: var(--fg); }
       Open for independent consulting
     </div>
 
-    <div class="eyebrow">
-      <span>Co-Founder</span><span>/</span>
-      <span>Ex-Google</span><span>/</span>
-      <span>AI Systems Engineer</span><span>/</span>
-      <span>San Francisco Area</span>
-    </div>
+    <h1 class="pitch">I take the AI work that has to hold up in production.</h1>
 
-    <h1>
-      <span class="line"><span>Arvind Ram</span></span>
-      <span class="line"><span>Anantharam</span></span>
-    </h1>
+    <p class="lede">
+      The architecture call, the build nobody has scoped yet, the production
+      problem three teams have already bounced off — I <b>own it end to end</b>.
+      Agentic architectures, AI-native runtimes, distributed systems, and ML
+      infrastructure.
+    </p>
 
-    <div class="hero-foot">
-      <p class="lede">
-        I take on the <b>ambiguous, high-stakes engineering</b>: the architecture
-        call, the build nobody has scoped yet, the production problem three teams
-        have already bounced off. I <b>own it end to end</b> — agentic
-        architectures, AI-native runtimes, distributed systems, and ML infrastructure.
-      </p>
+    <div class="cred">
+      <div>
+        <p class="who">Arvind Ram Anantharam</p>
+        <p class="meta">
+          <span>Co-Founder, Operable</span><span class="sep">·</span>
+          <span>Ex-Google</span><span class="sep">·</span>
+          <span>San Francisco Area</span>
+        </p>
+      </div>
 
       <div class="links">
         <a href="https://github.com/arvindram03" target="_blank" rel="noopener">GitHub</a>
