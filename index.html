@@ -430,6 +430,24 @@ h2 {
   letter-spacing: .1em; color: var(--faint);
   transition: color .4s var(--ease);
 }
+.pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+.pill {
+  padding: 5px 12px; border: 1px solid var(--line); border-radius: 100px;
+  font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--mute);
+  white-space: nowrap;
+  transition: color .35s var(--ease), border-color .35s var(--ease);
+}
+.pill:hover { color: var(--fg); border-color: var(--fg); }
+.slide[data-active] .pill { animation: pillIn .5s var(--ease) backwards; }
+.slide[data-active] .pill:nth-child(1) { animation-delay: .30s; }
+.slide[data-active] .pill:nth-child(2) { animation-delay: .36s; }
+.slide[data-active] .pill:nth-child(3) { animation-delay: .42s; }
+.slide[data-active] .pill:nth-child(4) { animation-delay: .48s; }
+.slide[data-active] .pill:nth-child(5) { animation-delay: .54s; }
+.slide[data-active] .pill:nth-child(6) { animation-delay: .60s; }
+@keyframes pillIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
 .note {
   margin-top: auto; padding-top: 30px;
   font-family: var(--mono); font-size: 11px;
@@ -724,6 +742,12 @@ footer .social a:hover { color: var(--fg); }
               <p>The runtime itself — giving AI agents governed business context across
               customers, contracts, invoices and relationships instead of isolated APIs.</p>
             </div>
+            <div class="pills">
+              <span class="pill">AI-Native Runtime</span>
+              <span class="pill">Governed Context</span>
+              <span class="pill">CRM / ERP / Finance</span>
+              <span class="pill">Enterprise Pilots</span>
+            </div>
             <a class="visit" href="https://operable-rosy.vercel.app/" target="_blank" rel="noopener">
               <span class="arw">→</span> operable-rosy.vercel.app
             </a>
@@ -757,6 +781,13 @@ footer .social a:hover { color: var(--fg); }
               <p>Malleable apps — composable, and safe for AI to edit. Agents make
               targeted, structural edits to live systems instead of regenerating whole
               applications.</p>
+            </div>
+            <div class="pills">
+              <span class="pill">AI App Builder</span>
+              <span class="pill">Safe Agent Edits</span>
+              <span class="pill">Composable Apps</span>
+              <span class="pill">Collaborative</span>
+              <span class="pill">~500 Pilot Users</span>
             </div>
             <span class="note">Piloted with ~500 users across two university campuses</span>
           </div>
@@ -795,6 +826,13 @@ footer .social a:hover { color: var(--fg); }
               <p>The agentic system end to end: knowledge graph, persistent memory,
               planning and execution wired into a multi-agent platform that runs in production.</p>
             </div>
+            <div class="pills">
+              <span class="pill">Multi-Agent</span>
+              <span class="pill">Knowledge Graphs</span>
+              <span class="pill">Persistent Memory</span>
+              <span class="pill">Planning &amp; Execution</span>
+              <span class="pill">In Production</span>
+            </div>
             <a class="visit" href="https://subtextlabs.ai/" target="_blank" rel="noopener">
               <span class="arw">→</span> subtextlabs.ai
             </a>
@@ -827,6 +865,12 @@ footer .social a:hover { color: var(--fg); }
               <span class="tl">What I built</span>
               <p>The production agentic research platform it runs on — continuously
               researching products, competitors, churn and market trends.</p>
+            </div>
+            <div class="pills">
+              <span class="pill">Agentic Research</span>
+              <span class="pill">AI-Moderated Interviews</span>
+              <span class="pill">Churn &amp; Competitor Analysis</span>
+              <span class="pill">In Production</span>
             </div>
             <a class="visit" href="https://www.tangiblehq.ai/" target="_blank" rel="noopener">
               <span class="arw">→</span> tangiblehq.ai
@@ -878,6 +922,14 @@ footer .social a:hover { color: var(--fg); }
               <p>The entire stack from scratch — distributed Go microservices on AWS
               with Redis, cloud deployment and CI/CD, engineered to scale to an
               Indian-population audience.</p>
+            </div>
+            <div class="pills">
+              <span class="pill">Golang</span>
+              <span class="pill">Distributed Microservices</span>
+              <span class="pill">Redis</span>
+              <span class="pill">AWS</span>
+              <span class="pill">CI/CD</span>
+              <span class="pill">India-Scale</span>
             </div>
             <a class="visit" href="https://justickets.in/" target="_blank" rel="noopener">
               <span class="arw">→</span> justickets.in
