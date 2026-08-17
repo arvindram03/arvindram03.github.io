@@ -91,10 +91,21 @@ nav .wrap {
   height: 64px;
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
 }
+nav .ident { display: flex; align-items: center; gap: 14px; min-width: 0; }
 nav .brand {
   font-family: var(--mono); font-size: 12px; font-weight: 600;
-  letter-spacing: .16em; text-transform: uppercase;
+  letter-spacing: .16em; text-transform: uppercase; white-space: nowrap;
 }
+nav .motto {
+  position: relative; padding-left: 15px; white-space: nowrap;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--faint);
+}
+nav .motto::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 8px; height: 1px; background: var(--faint);
+}
+@media (max-width: 420px) { nav .motto { display: none; } }
 nav .navlinks { display: flex; gap: 30px; }
 nav .navlinks a {
   position: relative;
@@ -319,38 +330,119 @@ h2 {
 /* ============================================================
    PORTFOLIO
    ============================================================ */
-.folio {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+.folio { border: 1px solid var(--line); --dur: 8s; }
+
+/* tabs */
+.tabs { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: 1px solid var(--line); }
+.tab {
+  appearance: none; background: none; border: 0; border-right: 1px solid var(--line);
+  font: inherit; color: var(--faint); text-align: left; cursor: pointer;
+  padding: 20px 24px 0;
+  display: flex; flex-direction: column; gap: 5px;
+  transition: color .4s var(--ease), background .4s var(--ease);
 }
-.folio a {
-  display: flex; flex-direction: column;
-  padding: 34px 28px 30px;
-  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  transition: background .45s var(--ease);
+.tab:last-child { border-right: 0; }
+.tab:hover { color: var(--fg); background: var(--soft); }
+.tab[aria-selected="true"] { color: var(--fg); }
+.tab .tnum { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; }
+.tab .tname {
+  font-size: clamp(16px, 2vw, 22px); font-weight: 700; letter-spacing: -0.02em;
 }
-.folio a:hover { background: var(--soft); }
-.folio .role {
+.tprog { display: block; height: 2px; margin-top: 16px; background: var(--line); position: relative; }
+.tprog i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--fg); }
+.tab[aria-selected="true"] .tprog i { animation: fill var(--dur) linear forwards; }
+@keyframes fill { from { width: 0; } to { width: 100%; } }
+.folio.paused .tab[aria-selected="true"] .tprog i { animation-play-state: paused; }
+
+/* slides */
+.slides { display: grid; }
+.slide {
+  grid-area: 1 / 1;
+  display: grid; grid-template-columns: 43% 1fr;
+  opacity: 0; visibility: hidden; transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity .55s var(--ease), transform .55s var(--ease), visibility .55s;
+}
+.slide[data-active] { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+
+.art {
+  border-right: 1px solid var(--line);
+  background-color: var(--soft);
+  background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+  background-size: 16px 16px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 44px 34px; color: var(--fg);
+}
+.art svg { width: 100%; max-width: 320px; height: auto; display: block; }
+.art .ln { stroke-dasharray: 260; stroke-dashoffset: 260; }
+.slide[data-active] .art .ln { animation: draw 1.1s var(--ease) forwards; }
+.slide[data-active] .art .ln:nth-of-type(2) { animation-delay: .07s; }
+.slide[data-active] .art .ln:nth-of-type(3) { animation-delay: .14s; }
+.slide[data-active] .art .ln:nth-of-type(4) { animation-delay: .21s; }
+.slide[data-active] .art .ln:nth-of-type(5) { animation-delay: .28s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.art .ring { stroke-dasharray: 820; stroke-dashoffset: 820; }
+.slide[data-active] .art .ring { animation: draw 1.4s var(--ease) forwards; }
+.art .pop { transform-origin: center; }
+.slide[data-active] .art .pop { animation: pop .6s var(--ease) backwards; animation-delay: .35s; }
+@keyframes pop { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: scale(1); } }
+
+.info { padding: 44px 44px 40px; display: flex; flex-direction: column; }
+.info .role {
   font-family: var(--mono); font-size: 10px;
   letter-spacing: .18em; text-transform: uppercase; color: var(--faint);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
-.folio h3 {
-  margin: 0 0 12px;
-  font-size: clamp(22px, 2.6vw, 30px);
-  letter-spacing: -0.03em; font-weight: 700; line-height: 1.1;
+.info h3 {
+  margin: 0 0 14px;
+  font-size: clamp(26px, 3.4vw, 40px);
+  letter-spacing: -0.035em; font-weight: 800; line-height: 1;
 }
-.folio p { margin: 0 0 28px; font-size: 15px; color: var(--mute); flex: 1; }
-.folio .go {
-  display: flex; align-items: center; gap: 10px;
+.info .desc { margin: 0; font-size: 16px; color: var(--mute); }
+
+.takeaway {
+  margin: 26px 0 0;
+  border-left: 3px solid var(--fg); background: var(--soft);
+  padding: 18px 22px;
+}
+.takeaway .tl {
+  display: block; margin-bottom: 9px;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--faint);
+}
+.takeaway p { margin: 0; font-size: 16px; color: var(--fg); font-weight: 500; }
+
+.visit {
+  margin-top: auto; padding-top: 30px;
+  display: inline-flex; align-items: center; gap: 11px;
   font-family: var(--mono); font-size: 11px;
   letter-spacing: .1em; color: var(--faint);
   transition: color .4s var(--ease);
 }
-.folio a:hover .go { color: var(--fg); }
-.folio .arw { transition: transform .45s var(--ease); }
-.folio a:hover .arw { transform: translateX(6px); }
-@media (max-width: 860px) { .folio { grid-template-columns: 1fr; } }
+.note {
+  margin-top: auto; padding-top: 30px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .1em; color: var(--faint);
+}
+.visit .arw { transition: transform .45s var(--ease); }
+.visit:hover { color: var(--fg); }
+.visit:hover .arw { transform: translateX(6px); }
+
+@media (max-width: 860px) {
+  .slide { grid-template-columns: 1fr; }
+  .art { border-right: 0; border-bottom: 1px solid var(--line); padding: 34px 26px; }
+  .art svg { max-width: 250px; }
+  .info { padding: 30px 26px 28px; }
+  .tab { padding: 15px 14px 0; }
+  .tab .tnum { font-size: 9px; }
+  .visit { padding-top: 24px; }
+}
+@media (max-width: 760px) {
+  .tabs { grid-template-columns: repeat(2, 1fr); }
+  .tab { border-bottom: 1px solid var(--line); }
+  .tab:nth-child(2n) { border-right: 0; }
+  .tab:last-child { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
+}
 
 /* ============================================================
    WORK
@@ -506,13 +598,13 @@ footer .social a:hover { color: var(--fg); }
 
 <nav id="nav">
   <div class="wrap">
-    <a class="brand" href="#top">Arvind Ram</a>
+    <div class="ident">
+      <a class="brand" href="#top">Arvind Ram</a>
+      <span class="motto">I seek things</span>
+    </div>
     <div class="navlinks">
-      <a href="#experience">Experience</a>
       <a href="#portfolio">Portfolio</a>
-      <a href="#work">Work</a>
-      <a href="#skills">Skills</a>
-      <a href="#writing">Writing</a>
+      <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -554,10 +646,240 @@ footer .social a:hover { color: var(--fg); }
   </div>
 </header>
 
-<section id="experience">
+<section id="portfolio">
   <div class="wrap">
     <div class="sechead" data-reveal>
       <span class="num">01</span>
+      <h2>Portfolio</h2>
+    </div>
+
+    <div class="folio" id="folio" data-reveal>
+      <div class="tabs" role="tablist" aria-label="Portfolio">
+        <button class="tab" role="tab" id="t-0" aria-controls="p-0" aria-selected="true">
+          <span class="tnum">01</span><span class="tname">Operable</span>
+          <span class="tprog"><i></i></span>
+        </button>
+        <button class="tab" role="tab" id="t-1" aria-controls="p-1" aria-selected="false" tabindex="-1">
+          <span class="tnum">02</span><span class="tname">Malleable</span>
+          <span class="tprog"><i></i></span>
+        </button>
+        <button class="tab" role="tab" id="t-2" aria-controls="p-2" aria-selected="false" tabindex="-1">
+          <span class="tnum">03</span><span class="tname">Subtext</span>
+          <span class="tprog"><i></i></span>
+        </button>
+        <button class="tab" role="tab" id="t-3" aria-controls="p-3" aria-selected="false" tabindex="-1">
+          <span class="tnum">04</span><span class="tname">Tangible</span>
+          <span class="tprog"><i></i></span>
+        </button>
+        <button class="tab" role="tab" id="t-4" aria-controls="p-4" aria-selected="false" tabindex="-1">
+          <span class="tnum">05</span><span class="tname">Justickets</span>
+          <span class="tprog"><i></i></span>
+        </button>
+      </div>
+
+      <div class="slides">
+
+        <!-- 01 — Operable -->
+        <div class="slide" id="p-0" role="tabpanel" aria-labelledby="t-0" data-active>
+          <div class="art">
+            <svg viewBox="0 0 400 320" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="16"  y="30" width="62" height="34" />
+              <rect x="98"  y="30" width="62" height="34" />
+              <rect x="180" y="30" width="62" height="34" />
+              <rect x="262" y="30" width="62" height="34" />
+              <rect x="344" y="30" width="40" height="34" />
+              <path class="ln" d="M47 64 V130"/>
+              <path class="ln" d="M129 64 V130"/>
+              <path class="ln" d="M211 64 V130"/>
+              <path class="ln" d="M293 64 V130"/>
+              <path class="ln" d="M364 64 V130"/>
+              <rect class="pop" x="16" y="130" width="368" height="52" fill="currentColor" stroke="none"/>
+              <path class="ln" d="M110 182 V222"/>
+              <path class="ln" d="M200 182 V222"/>
+              <path class="ln" d="M290 182 V222"/>
+              <rect x="70"  y="222" width="80" height="44"/>
+              <rect x="160" y="222" width="80" height="44"/>
+              <rect x="250" y="222" width="80" height="44"/>
+            </svg>
+          </div>
+          <div class="info">
+            <div class="role">Co-Founder &amp; CTO · 2025 — Present</div>
+            <h3>Operable</h3>
+            <p class="desc">A business operating layer that unifies CRM, ERP, finance and
+            support data so AI agents and teams can safely automate renewals, credit
+            decisions and collections — without replacing the systems already in place.</p>
+            <div class="takeaway">
+              <span class="tl">What I built</span>
+              <p>The runtime itself — giving AI agents governed business context across
+              customers, contracts, invoices and relationships instead of isolated APIs.</p>
+            </div>
+            <a class="visit" href="https://operable-rosy.vercel.app/" target="_blank" rel="noopener">
+              <span class="arw">→</span> operable-rosy.vercel.app
+            </a>
+          </div>
+        </div>
+
+        <!-- 02 — Malleable -->
+        <div class="slide" id="p-1" role="tabpanel" aria-labelledby="t-1">
+          <div class="art">
+            <svg viewBox="0 0 400 320" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="34"  y="30"  width="100" height="76" rx="6"/>
+              <rect x="150" y="30"  width="100" height="76" rx="6"/>
+              <rect x="266" y="30"  width="100" height="76" rx="6"/>
+              <rect x="34"  y="122" width="100" height="76" rx="6"/>
+              <rect x="150" y="122" width="100" height="76" rx="6" stroke="var(--faint)" stroke-dasharray="7 7"/>
+              <rect x="266" y="122" width="100" height="76" rx="6"/>
+              <rect x="34"  y="214" width="100" height="76" rx="6"/>
+              <rect x="150" y="214" width="100" height="76" rx="6"/>
+              <rect x="266" y="214" width="100" height="76" rx="6"/>
+              <rect class="pop" x="162" y="108" width="100" height="76" rx="6" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="info">
+            <div class="role">Founder · 2025 — pivoted into Operable</div>
+            <h3>Malleable</h3>
+            <p class="desc">An app builder for a group computer. Build multiple apps with
+            AI on a custom AI framework and platform that runs them safely, collaborate
+            with others, and keep building without worrying about breaking things.</p>
+            <div class="takeaway">
+              <span class="tl">What I built</span>
+              <p>Malleable apps — composable, and safe for AI to edit. Agents make
+              targeted, structural edits to live systems instead of regenerating whole
+              applications.</p>
+            </div>
+            <span class="note">Piloted with ~500 users across two university campuses</span>
+          </div>
+        </div>
+
+        <!-- 03 — Subtext -->
+        <div class="slide" id="p-2" role="tabpanel" aria-labelledby="t-2">
+          <div class="art">
+            <svg viewBox="0 0 400 320" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path class="ln" d="M200 160 L90 70"/>
+              <path class="ln" d="M200 160 L330 90"/>
+              <path class="ln" d="M200 160 L70 212"/>
+              <path class="ln" d="M200 160 L300 250"/>
+              <path class="ln" d="M200 160 L190 40"/>
+              <path class="ln" d="M90 70 L190 40"/>
+              <path class="ln" d="M330 90 L300 250"/>
+              <path class="ln" d="M70 212 L142 284"/>
+              <path class="ln" d="M142 284 L300 250"/>
+              <circle cx="90"  cy="70"  r="13" fill="var(--soft)"/>
+              <circle cx="190" cy="40"  r="9"  fill="var(--soft)"/>
+              <circle cx="330" cy="90"  r="15" fill="var(--soft)"/>
+              <circle cx="70"  cy="212" r="11" fill="var(--soft)"/>
+              <circle cx="300" cy="250" r="14" fill="var(--soft)"/>
+              <circle cx="142" cy="284" r="9"  fill="var(--soft)"/>
+              <circle class="pop" cx="200" cy="160" r="27" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="info">
+            <div class="role">AI Engineering Consultant · 2025 — 2026</div>
+            <h3>Subtext</h3>
+            <p class="desc">AI customer research with human depth — study design,
+            participant recruitment, AI-moderated interviews and live reporting,
+            turning research cycles from weeks into hours.</p>
+            <div class="takeaway">
+              <span class="tl">What I built</span>
+              <p>The agentic system end to end: knowledge graph, persistent memory,
+              planning and execution wired into a multi-agent platform that runs in production.</p>
+            </div>
+            <a class="visit" href="https://subtextlabs.ai/" target="_blank" rel="noopener">
+              <span class="arw">→</span> subtextlabs.ai
+            </a>
+          </div>
+        </div>
+
+        <!-- 04 — Tangible -->
+        <div class="slide" id="p-3" role="tabpanel" aria-labelledby="t-3">
+          <div class="art">
+            <svg viewBox="0 0 400 320" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle class="ring" cx="200" cy="160" r="48"/>
+              <circle class="ring" cx="200" cy="160" r="86"  style="animation-delay:.12s"/>
+              <circle class="ring" cx="200" cy="160" r="124" style="animation-delay:.24s"/>
+              <circle cx="200" cy="74"  r="9" fill="currentColor" stroke="none"/>
+              <circle cx="274" cy="203" r="9" fill="currentColor" stroke="none"/>
+              <circle cx="126" cy="203" r="9" fill="currentColor" stroke="none"/>
+              <circle cx="307" cy="98"  r="7" fill="var(--soft)"/>
+              <circle cx="93"  cy="222" r="7" fill="var(--soft)"/>
+              <circle cx="200" cy="284" r="7" fill="var(--soft)"/>
+              <circle class="pop" cx="200" cy="160" r="23" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="info">
+            <div class="role">AI Engineering Consultant · 2025 — 2026</div>
+            <h3>Tangible</h3>
+            <p class="desc">Research you can act on — AI-moderated interviews with real,
+            recruited customers rather than synthetic personas, producing board-ready
+            reports with themes, verbatims and recommendations.</p>
+            <div class="takeaway">
+              <span class="tl">What I built</span>
+              <p>The production agentic research platform it runs on — continuously
+              researching products, competitors, churn and market trends.</p>
+            </div>
+            <a class="visit" href="https://www.tangiblehq.ai/" target="_blank" rel="noopener">
+              <span class="arw">→</span> tangiblehq.ai
+            </a>
+          </div>
+        </div>
+
+        <!-- 05 — Justickets -->
+        <div class="slide" id="p-4" role="tabpanel" aria-labelledby="t-4">
+          <div class="art">
+            <svg viewBox="0 0 400 320" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path class="ln" d="M56 62 Q200 24 344 62"/>
+              <rect x="80"  y="112" width="30" height="24" rx="5"/>
+              <rect x="122" y="112" width="30" height="24" rx="5" fill="currentColor" stroke="none" class="pop"/>
+              <rect x="164" y="112" width="30" height="24" rx="5"/>
+              <rect x="206" y="112" width="30" height="24" rx="5" fill="currentColor" stroke="none" class="pop"/>
+              <rect x="248" y="112" width="30" height="24" rx="5"/>
+              <rect x="290" y="112" width="30" height="24" rx="5"/>
+              <rect x="80"  y="154" width="30" height="24" rx="5"/>
+              <rect x="122" y="154" width="30" height="24" rx="5"/>
+              <rect x="164" y="154" width="30" height="24" rx="5" fill="currentColor" stroke="none" class="pop"/>
+              <rect x="206" y="154" width="30" height="24" rx="5"/>
+              <rect x="248" y="154" width="30" height="24" rx="5" fill="currentColor" stroke="none" class="pop"/>
+              <rect x="290" y="154" width="30" height="24" rx="5"/>
+              <rect x="80"  y="196" width="30" height="24" rx="5" fill="currentColor" stroke="none" class="pop"/>
+              <rect x="122" y="196" width="30" height="24" rx="5"/>
+              <rect x="164" y="196" width="30" height="24" rx="5"/>
+              <rect x="206" y="196" width="30" height="24" rx="5"/>
+              <rect x="248" y="196" width="30" height="24" rx="5"/>
+              <rect x="290" y="196" width="30" height="24" rx="5" fill="currentColor" stroke="none" class="pop"/>
+              <rect x="80"  y="238" width="30" height="24" rx="5"/>
+              <rect x="122" y="238" width="30" height="24" rx="5"/>
+              <rect x="164" y="238" width="30" height="24" rx="5"/>
+              <rect x="206" y="238" width="30" height="24" rx="5"/>
+              <rect x="248" y="238" width="30" height="24" rx="5"/>
+              <rect x="290" y="238" width="30" height="24" rx="5"/>
+            </svg>
+          </div>
+          <div class="info">
+            <div class="role">Founding Engineer capacity · Consulting</div>
+            <h3>Justickets</h3>
+            <p class="desc">Show times and online cinema ticket booking across India —
+            hundreds of cities from Chennai to Kolkata, in English, Tamil, Telugu and
+            Malayalam.</p>
+            <div class="takeaway">
+              <span class="tl">What I built</span>
+              <p>Came in early, in a founding engineer capacity, on the ticketing
+              platform that now sells shows nationwide.</p>
+            </div>
+            <a class="visit" href="https://justickets.in/" target="_blank" rel="noopener">
+              <span class="arw">→</span> justickets.in
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sechead" data-reveal>
+      <span class="num">02</span>
       <h2>Experience</h2>
     </div>
 
@@ -598,44 +920,6 @@ footer .social a:hover { color: var(--fg); }
       <div class="metric"><div class="n">~500</div><div class="l">Pilot users across<br />two campuses</div></div>
       <div class="metric"><div class="n">PB</div><div class="l">Scale streaming<br />+ training data</div></div>
       <div class="metric"><div class="n">7</div><div class="l">Years building<br />systems at Google</div></div>
-    </div>
-  </div>
-</section>
-
-<section id="portfolio">
-  <div class="wrap">
-    <div class="sechead" data-reveal>
-      <span class="num">02</span>
-      <h2>Portfolio</h2>
-    </div>
-
-    <div class="folio">
-      <a href="https://operable-rosy.vercel.app/" target="_blank" rel="noopener" data-reveal>
-        <div class="role">Co-Founder &amp; CTO</div>
-        <h3>Operable</h3>
-        <p>A business operating layer that unifies CRM, ERP, finance and support data
-        so AI agents and teams can safely automate renewals, credit decisions and
-        collections — without replacing the systems already in place.</p>
-        <span class="go"><span class="arw">→</span> operable-rosy.vercel.app</span>
-      </a>
-
-      <a href="https://subtextlabs.ai/" target="_blank" rel="noopener" data-reveal>
-        <div class="role">AI Engineering Consultant</div>
-        <h3>Subtext</h3>
-        <p>AI customer research with human depth. I built the graph-engineered agentic
-        system behind it — knowledge graphs, persistent memory, planning and execution
-        wired into a multi-agent platform that is live in production.</p>
-        <span class="go"><span class="arw">→</span> subtextlabs.ai</span>
-      </a>
-
-      <a href="https://www.tangiblehq.ai/" target="_blank" rel="noopener" data-reveal>
-        <div class="role">AI Engineering Consultant</div>
-        <h3>Tangible</h3>
-        <p>Research you can act on: AI-moderated interviews with real, recruited
-        customers producing board-ready reports. Running on the agentic research
-        system I delivered.</p>
-        <span class="go"><span class="arw">→</span> tangiblehq.ai</span>
-      </a>
     </div>
   </div>
 </section>
@@ -825,6 +1109,81 @@ footer .social a:hover { color: var(--fg); }
       io.observe(el);
     });
   });
+
+  /* ---- portfolio: tabbed slider with auto-advance ---- */
+  var folio = document.getElementById('folio');
+  if (folio) {
+    var tabs   = [].slice.call(folio.querySelectorAll('.tab'));
+    var slides = [].slice.call(folio.querySelectorAll('.slide'));
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var DUR = 8000;
+    var current = 0, timer = null, seen = false;
+
+    function show(i, manual) {
+      current = i;
+      tabs.forEach(function (t, k) {
+        var on = k === i;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+      });
+      slides.forEach(function (s, k) {
+        if (k === i) { s.setAttribute('data-active', ''); }
+        else { s.removeAttribute('data-active'); }
+      });
+      // restart the progress fill
+      var fill = tabs[i].querySelector('.tprog i');
+      fill.style.animation = 'none';
+      void fill.offsetWidth;
+      fill.style.animation = '';
+      if (manual) { queue(); }
+    }
+
+    function queue() {
+      clearTimeout(timer);
+      if (reduce || !seen) { return; }
+      timer = setTimeout(function () { show((current + 1) % slides.length); queue(); }, DUR);
+    }
+
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { show(i, true); });
+    });
+
+    folio.querySelector('.tabs').addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) { return; }
+      e.preventDefault();
+      var n = (current + d + slides.length) % slides.length;
+      show(n, true);
+      tabs[n].focus();
+    });
+
+    // pause while the visitor is reading or tabbing through
+    folio.addEventListener('mouseenter', function () {
+      folio.classList.add('paused'); clearTimeout(timer);
+    });
+    folio.addEventListener('mouseleave', function () {
+      folio.classList.remove('paused'); show(current); queue();
+    });
+    folio.addEventListener('focusin', function () {
+      folio.classList.add('paused'); clearTimeout(timer);
+    });
+    folio.addEventListener('focusout', function () {
+      if (!folio.contains(document.activeElement)) {
+        folio.classList.remove('paused'); show(current); queue();
+      }
+    });
+
+    // only start cycling once it is actually on screen
+    new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { seen = true; show(0); queue(); obs.disconnect(); }
+      });
+    }, { threshold: 0.25 }).observe(folio);
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { clearTimeout(timer); } else { queue(); }
+    });
+  }
 
   /* ---- progress bar + nav border ---- */
   var bar = document.getElementById('progress');
