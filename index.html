@@ -21,6 +21,8 @@
    TOKENS
    ============================================================ */
 :root {
+  color-scheme: light only;
+
   --bg:    #ffffff;
   --fg:    #000000;
   --mute:  #666666;
@@ -34,17 +36,6 @@
   --pad: 40px;
   --maxw: 1180px;
   --ease: cubic-bezier(.22, 1, .36, 1);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg:    #0a0a0a;
-    --fg:    #fafafa;
-    --mute:  #a0a0a0;
-    --faint: #666666;
-    --line:  #242424;
-    --soft:  #141414;
-  }
 }
 
 * { box-sizing: border-box; }
@@ -293,12 +284,6 @@ h2 {
   font-family: var(--mono); font-size: 10px;
   letter-spacing: .16em; text-transform: uppercase; font-weight: 500;
 }
-.earlier {
-  margin-top: 30px;
-  font-family: var(--mono); font-size: 12px;
-  color: var(--faint); line-height: 2;
-}
-
 @media (max-width: 700px) {
   .job { grid-template-columns: 1fr; gap: 6px; }
   .job .when { grid-column: 1; grid-row: auto; order: -1; }
@@ -550,9 +535,14 @@ footer .social a:hover { color: var(--fg); }
       <p>RL-based ML systems, petabyte-scale streaming data infrastructure, and backend services at scale.</p>
     </div>
 
-    <div class="earlier" data-reveal>
-      Software Developer — ThoughtWorks Technologies India, 2013–2015<br />
-      Developer Intern — ObjectRocket by Rackspace, 2016
+    <div class="job" data-reveal>
+      <h3>Developer Intern <span class="org">— ObjectRocket by Rackspace</span></h3>
+      <span class="when">May 2016 — Aug 2016</span>
+    </div>
+
+    <div class="job" data-reveal>
+      <h3>Software Developer <span class="org">— ThoughtWorks Technologies India</span></h3>
+      <span class="when">Oct 2013 — Jul 2015</span>
     </div>
   </div>
 </section>
