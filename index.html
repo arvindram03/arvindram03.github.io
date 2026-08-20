@@ -142,20 +142,24 @@ header {
   padding: 120px 0 60px;
 }
 
-.avail {
-  display: inline-flex; align-items: center; gap: 11px;
-  padding: 9px 19px; margin-bottom: 24px;
-  border: 1px solid var(--line); border-radius: 100px;
-  font-family: var(--mono); font-size: 10.5px;
-  letter-spacing: .18em; text-transform: uppercase; color: var(--mute);
-  transition: border-color .4s var(--ease), color .4s var(--ease);
-}
-.avail:hover { border-color: var(--fg); color: var(--fg); }
-
-.avail {
+.hero-id {
+  margin-bottom: 24px;
   opacity: 0; transform: translateY(16px);
   animation: fade .8s var(--ease) .04s forwards;
 }
+.hero-id .who {
+  margin: 0;
+  font-family: var(--mono); font-size: 13px; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+}
+.hero-id .meta {
+  margin: 9px 0 0;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 2px 12px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--faint);
+}
+.hero-id .meta span { white-space: nowrap; }
+.hero-id .meta .sep { color: var(--line); }
 
 .dot {
   width: 6px; height: 6px; border-radius: 50%; background: var(--fg);
@@ -164,17 +168,6 @@ header {
 @keyframes pulse {
   0%, 100% { opacity: 1;   transform: scale(1); }
   50%      { opacity: .35; transform: scale(.75); }
-}
-
-/* live "available" indicator — the one spot of colour on the page */
-.avail .dot {
-  background: #12b76a;
-  animation: ping 2.4s var(--ease) infinite;
-}
-@keyframes ping {
-  0%   { box-shadow: 0 0 0 0   rgba(18, 183, 106, .55); }
-  70%  { box-shadow: 0 0 0 9px rgba(18, 183, 106, 0);   }
-  100% { box-shadow: 0 0 0 0   rgba(18, 183, 106, 0);   }
 }
 
 /* the pitch carries the hero, not the name */
@@ -199,28 +192,14 @@ h1.pitch {
 .lede b { color: var(--fg); font-weight: 600; }
 .lede .also { display: block; margin-top: 14px; }
 
-/* name demoted to a credential line under a rule */
+/* quiet utility row: links only */
 .cred {
   margin-top: 52px; padding-top: 26px;
   border-top: 1px solid var(--line);
-  display: flex; align-items: flex-end; justify-content: space-between;
-  gap: 28px; flex-wrap: wrap;
+  display: flex; align-items: center; justify-content: flex-start;
   opacity: 0; transform: translateY(20px);
   animation: fade .9s var(--ease) .36s forwards;
 }
-.cred .who {
-  margin: 0;
-  font-family: var(--mono); font-size: 13px; font-weight: 600;
-  letter-spacing: .16em; text-transform: uppercase;
-}
-.cred .meta {
-  margin: 9px 0 0;
-  display: flex; flex-wrap: wrap; align-items: center; gap: 2px 12px;
-  font-family: var(--mono); font-size: 11px;
-  letter-spacing: .1em; text-transform: uppercase; color: var(--faint);
-}
-.cred .meta span { white-space: nowrap; }
-.cred .meta .sep { color: var(--line); }
 
 .links { display: flex; flex-wrap: wrap; gap: 10px; }
 .links a {
@@ -238,10 +217,6 @@ h1.pitch {
 }
 .links a:hover { color: var(--bg); border-color: var(--fg); }
 .links a:hover::before { transform: translateY(0); }
-
-@media (max-width: 860px) {
-  .cred { align-items: flex-start; gap: 22px; }
-}
 
 /* ============================================================
    SECTIONS
@@ -356,7 +331,7 @@ h2 {
 .folio { border: 1px solid var(--line); --dur: 8s; }
 
 /* tabs */
-.tabs { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: 1px solid var(--line); }
+.tabs { display: grid; grid-template-columns: repeat(6, 1fr); border-bottom: 1px solid var(--line); }
 .tab {
   appearance: none; background: none; border: 0; border-right: 1px solid var(--line);
   font: inherit; color: var(--faint); text-align: left; cursor: pointer;
@@ -482,7 +457,7 @@ h2 {
   .tabs { grid-template-columns: repeat(2, 1fr); }
   .tab { border-bottom: 1px solid var(--line); }
   .tab:nth-child(2n) { border-right: 0; }
-  .tab:last-child { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
+  .tab:nth-last-child(-n+2) { border-bottom: 0; }
 }
 
 /* ============================================================
@@ -662,7 +637,7 @@ footer .social a:hover { color: var(--fg); }
     transition-duration: .01ms !important;
   }
   [data-reveal] { opacity: 1; transform: none; }
-  .avail, .pitch, .lede, .cred { opacity: 1; transform: none; }
+  .hero-id, .pitch, .lede, .cred { opacity: 1; transform: none; }
 }
 </style>
 </head>
@@ -691,9 +666,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header id="top">
   <div class="wrap">
-    <div class="avail">
-      <span class="dot"></span>
-      Open for independent consulting
+    <div class="hero-id">
+      <p class="who">Arvind Ram Anantharam</p>
+      <p class="meta">
+        <span>Co-Founder, Operable</span><span class="sep">·</span>
+        <span>Ex-Google</span><span class="sep">·</span>
+        <span>San Francisco Area</span>
+      </p>
     </div>
 
     <h1 class="pitch">I build at the edge of what software can do.</h1>
@@ -707,15 +686,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </p>
 
     <div class="cred">
-      <div>
-        <p class="who">Arvind Ram Anantharam</p>
-        <p class="meta">
-          <span>Co-Founder, Operable</span><span class="sep">·</span>
-          <span>Ex-Google</span><span class="sep">·</span>
-          <span>San Francisco Area</span>
-        </p>
-      </div>
-
       <div class="links">
         <a href="https://github.com/arvindram03" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/arvindram03" target="_blank" rel="noopener">LinkedIn</a>
@@ -739,19 +709,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="tprog"><i></i></span>
         </button>
         <button class="tab" role="tab" id="t-1" aria-controls="p-1" aria-selected="false" tabindex="-1">
-          <span class="tnum">02</span><span class="tname">Malleable</span>
+          <span class="tnum">02</span><span class="tname">Ario</span>
           <span class="tprog"><i></i></span>
         </button>
         <button class="tab" role="tab" id="t-2" aria-controls="p-2" aria-selected="false" tabindex="-1">
-          <span class="tnum">03</span><span class="tname">Subtext</span>
+          <span class="tnum">03</span><span class="tname">Malleable</span>
           <span class="tprog"><i></i></span>
         </button>
         <button class="tab" role="tab" id="t-3" aria-controls="p-3" aria-selected="false" tabindex="-1">
-          <span class="tnum">04</span><span class="tname">Tangible</span>
+          <span class="tnum">04</span><span class="tname">Subtext</span>
           <span class="tprog"><i></i></span>
         </button>
         <button class="tab" role="tab" id="t-4" aria-controls="p-4" aria-selected="false" tabindex="-1">
-          <span class="tnum">05</span><span class="tname">Justickets</span>
+          <span class="tnum">05</span><span class="tname">Tangible</span>
+          <span class="tprog"><i></i></span>
+        </button>
+        <button class="tab" role="tab" id="t-5" aria-controls="p-5" aria-selected="false" tabindex="-1">
+          <span class="tnum">06</span><span class="tname">Justickets</span>
           <span class="tprog"><i></i></span>
         </button>
       </div>
@@ -804,8 +778,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
-        <!-- 02 — Malleable -->
+        <!-- 02 — Ario -->
         <div class="slide" id="p-1" role="tabpanel" aria-labelledby="t-1">
+          <div class="art">
+            <svg viewBox="0 0 400 320" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="35" y="28" width="330" height="264" rx="10" />
+              <rect class="ln" x="83" y="68" width="234" height="184" rx="8" />
+              <rect class="ln" x="132" y="107" width="136" height="106" rx="7" />
+              <rect class="pop" x="170" y="137" width="60" height="46" rx="6" fill="currentColor" stroke="none" />
+              <path class="ln" d="M54 54 H98" />
+              <path class="ln" d="M54 54 V98" />
+              <circle cx="54" cy="54" r="6" fill="var(--soft)" />
+              <circle cx="98" cy="54" r="6" fill="var(--soft)" />
+              <circle cx="54" cy="98" r="6" fill="var(--soft)" />
+              <path class="ln" d="M98 54 L132 107" />
+              <path class="ln" d="M54 98 L132 160" />
+              <path class="ln" d="M268 160 H338" />
+              <path d="M326 150 L338 160 L326 170" />
+            </svg>
+          </div>
+          <div class="info">
+            <div class="role">Creator · 2026 — Present</div>
+            <h3>Ario</h3>
+            <p class="desc">An AI-native canvas for understanding how systems work.
+            Start with the big picture, go inside any component, and return without
+            losing the context around it.</p>
+            <div class="takeaway">
+              <span class="tl">What I built</span>
+              <p>The complete semantic and rendering system — a Postgres source of
+              truth, agent and MCP authoring, automatic layout, and a React canvas
+              that turns system structure into explorable lessons.</p>
+            </div>
+            <div class="pills">
+              <span class="pill">AI-Native Canvas</span>
+              <span class="pill">Spatial Learning</span>
+              <span class="pill">Semantic Model</span>
+              <span class="pill">MCP + Agents</span>
+              <span class="pill">React + Postgres</span>
+              <span class="pill">ELK Layout</span>
+            </div>
+            <a class="visit" href="https://ario-nu.vercel.app/" target="_blank" rel="noopener">
+              <span class="arw">→</span> ario-nu.vercel.app
+            </a>
+          </div>
+        </div>
+
+        <!-- 03 — Malleable -->
+        <div class="slide" id="p-2" role="tabpanel" aria-labelledby="t-2">
           <div class="art">
             <svg viewBox="0 0 400 320" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="34"  y="30"  width="100" height="76" rx="6"/>
@@ -843,8 +862,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
-        <!-- 03 — Subtext -->
-        <div class="slide" id="p-2" role="tabpanel" aria-labelledby="t-2">
+        <!-- 04 — Subtext -->
+        <div class="slide" id="p-3" role="tabpanel" aria-labelledby="t-3">
           <div class="art">
             <svg viewBox="0 0 400 320" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path class="ln" d="M200 160 L90 70"/>
@@ -889,8 +908,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
-        <!-- 04 — Tangible -->
-        <div class="slide" id="p-3" role="tabpanel" aria-labelledby="t-3">
+        <!-- 05 — Tangible -->
+        <div class="slide" id="p-4" role="tabpanel" aria-labelledby="t-4">
           <div class="art">
             <svg viewBox="0 0 400 320" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle class="ring" cx="200" cy="160" r="48"/>
@@ -928,8 +947,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
-        <!-- 05 — Justickets -->
-        <div class="slide" id="p-4" role="tabpanel" aria-labelledby="t-4">
+        <!-- 06 — Justickets -->
+        <div class="slide" id="p-5" role="tabpanel" aria-labelledby="t-5">
           <div class="art">
             <svg viewBox="0 0 400 320" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <!-- screen: spans exactly the width of the seat block below -->
